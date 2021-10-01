@@ -7,7 +7,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 
-class MyApp(ShowBase):
+class WalkingPandaApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
 
@@ -38,8 +38,7 @@ class MyApp(ShowBase):
         self.camera.setHpr(angleDegrees, 0, 0)
         return Task.cont
 
-app = MyApp()
-app.run()
+
 
 
 
