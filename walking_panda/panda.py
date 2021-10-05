@@ -1,19 +1,7 @@
 import sys
 import platform
-
 from . import panda
 
-import argparse
-
-
-def cli():
-    parser = argparse.ArgumentParser(prog="walking_panda")
-    parser.add_argument("--no-rotate", help="Suppress Rotation",
-                        action="store_true")
-    args = parser.parse_args()
-
-    walking = panda.WalkingPanda(**vars(args))
-    walking.run()
 
 from math import pi, sin, cos
 
@@ -22,7 +10,7 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 
 class WalkingPandaApp(ShowBase):
-    def __init__(self, no_rotate = False):
+    def __init__(self, no_rotate=False):
         ShowBase.__init__(self)
 
         # Load the environment model.
@@ -34,8 +22,7 @@ class WalkingPandaApp(ShowBase):
         self.scene.setPos(-8, 42, 0)
 
         # Add the spinCameraTask procedure to the task manager.
-        if no_rotate == False :
-
+        if (no_rotate==False):
             self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
         # Load and transform the panda actor.
