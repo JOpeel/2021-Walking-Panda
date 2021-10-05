@@ -22,8 +22,12 @@ class WalkingPandaApp(ShowBase):
         self.scene.setPos(-8, 42, 0)
 
         # Add the spinCameraTask procedure to the task manager.
-        if (no_rotate==False):
+        if (no_rotate==False) :
+
             self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
+        else:
+            self.taskMgr.add(self.nospinCameraTask, "NoSpinCameraTask")
+
 
         # Load and transform the panda actor.
         self.pandaActor = Actor("models/panda-model",
@@ -41,6 +45,12 @@ class WalkingPandaApp(ShowBase):
         self.camera.setHpr(angleDegrees, 0, 0)
         return Task.cont
 
+    def nospinCameraTask(self, task):
+        angleDegrees = 60
+        angleRadians = 1
+        self.camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
+        self.camera.setHpr(angleDegrees, 0, 0)
+        return Task.cont
 
 
 
