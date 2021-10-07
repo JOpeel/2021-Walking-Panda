@@ -10,7 +10,7 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 
 class WalkingPandaApp(ShowBase):
-    def __init__(self, no_rotate=False):
+    def __init__(self, no_rotate=False, scale=False):
         ShowBase.__init__(self)
 
         # Load the environment model.
@@ -32,7 +32,7 @@ class WalkingPandaApp(ShowBase):
         # Load and transform the panda actor.
         self.pandaActor = Actor("models/panda-model",
                                 {"walk": "models/panda-walk4"})
-        self.pandaActor.setScale(0.005, 0.005, 0.005)
+        self.pandaActor.setScale(scale, scale, scale)
         self.pandaActor.reparentTo(self.render)
         # Loop its animation.
         self.pandaActor.loop("walk")
