@@ -6,4 +6,10 @@ Portfolio 1
 
 This package is build as a part of the CSC1034: Portfolio-1.
 
-Type `python hello_world.py` to see some useful information.
+Type `python walking_panda.py` in terminal to run the program.
+
+Arguments (type after python walking_panda.py)
+--scale "integer": changes size of panda
+--no-rotate: stops camera from rotating
+--no-move: stops panda from moving
+
