@@ -10,8 +10,9 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 
+
 class WalkingPandaApp(ShowBase):
-    def __init__(self, no_rotate=False, scale=False, no_move=False):
+    def __init__(self, no_rotate=False, scale=False, colour=False, no_move=False, first_person=False):
         ShowBase.__init__(self)
 
         # Load the environment model.
@@ -23,11 +24,7 @@ class WalkingPandaApp(ShowBase):
         self.scene.setPos(-8, 42, 0)
 
         # Add the spinCameraTask procedure to the task manager.
-        if (no_rotate==False) :
 
-            self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
-        else:
-            self.taskMgr.add(self.nospinCameraTask, "NoSpinCameraTask")
 
 
         # Load and transform the panda actor.
@@ -37,6 +34,30 @@ class WalkingPandaApp(ShowBase):
         self.pandaActor.reparentTo(self.render)
         # Loop its animation.
         self.pandaActor.loop("walk")
+
+        if (no_rotate==False) and first_person==False :
+
+            self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
+        elif no_rotate==True and first_person==False :
+            self.taskMgr.add(self.nospinCameraTask, "NoSpinCameraTask")
+        elif first_person==True :
+            self.taskMgr.add(self.firstpersonCameraTask, "FirstPersonCameraTask")
+            global pandadirection
+            pandadirection = self.pandaActor.getHpr()
+
+        if colour=="red" :
+            self.pandaActor.setColor(255, 0, 0, 255)
+        elif colour=="green" :
+            self.pandaActor.setColor(0, 255, 0, 255)
+        elif colour=="blue" :
+            self.pandaActor.setColor(0, 0, 255, 255)
+        elif colour=="yellow" :
+            self.pandaActor.setColor(255,255,0)
+        elif colour=="purple" :
+            self.pandaActor.setColor(128,0,255,255)
+        elif colour=="orange" :
+            self.pandaActor.setColor(255,128,0,255)
+
 
         if (no_move==False):
 
@@ -61,12 +82,18 @@ class WalkingPandaApp(ShowBase):
         return Task.cont
 
     def nospinCameraTask(self, task):
-        angleDegrees = 60
-        angleRadians = 1
+        angleDegrees = task.time * 0
+        angleRadians = angleDegrees * (pi / 180.0)
         self.camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
         self.camera.setHpr(angleDegrees, 0, 0)
         return Task.cont
 
-
+    def firstpersonCameraTask(self,task):
+        self.camera.setPos(self.pandaActor.get_pos())
+        if self.pandaActor.getHpr()== pandadirection:
+            self.camera.setHpr(180, 0, 0)
+        else:
+            self.camera.setHpr(0,0,0)
+        return task.cont
 
 
