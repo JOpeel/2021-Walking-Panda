@@ -35,6 +35,11 @@ class WalkingPandaApp(ShowBase):
         # Loop its animation.
         self.pandaActor.loop("walk")
 
+
+        mySound = self.loader.loadSfx("/h/c1007711_csc1034_practical1_2021_new/walking_panda/pandawalk.ogg")
+        mySound.play()
+
+
         if (no_rotate==False) and first_person==False :
 
             self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
@@ -71,6 +76,7 @@ class WalkingPandaApp(ShowBase):
             hprInterval2 = self.pandaActor.hprInterval(3, Point3(0, 0, 0), startHpr = Point3(180, 0, 0))
 
             self.pandaPace = Sequence(posInterval1, hprInterval1, posInterval2, hprInterval2, name = "pandaPace")
+
             self.pandaPace.loop()
 
     # Define a procedure to move the camera.
