@@ -20,10 +20,6 @@ class WalkingPandaApp(ShowBase):
         self.scene.setScale(0.25, 0.25, 0.25)
         self.scene.setPos(-8, 42, 0)
 
-        # Add the spinCameraTask procedure to the task manager.
-
-
-
         # Load and transform the panda actor.
         self.pandaActor = Actor("models/panda-model",
                                 {"walk": "models/panda-walk4"})
@@ -32,10 +28,11 @@ class WalkingPandaApp(ShowBase):
         # Loop its animation.
         self.pandaActor.loop("walk")
 
-
+        #load and play panda walking sound
         mySound = self.loader.loadSfx(soundpath)
         mySound.play()
 
+        #decides camera motion depending on arguments passed
         if (no_rotate==False) and first_person==False :
 
             self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
@@ -46,6 +43,7 @@ class WalkingPandaApp(ShowBase):
             global pandadirection
             pandadirection = self.pandaActor.getHpr()
 
+        #changes colour of panda
         if colour=="red" :
             self.pandaActor.setColor(255, 0, 0, 255)
         elif colour=="green" :
@@ -59,7 +57,7 @@ class WalkingPandaApp(ShowBase):
         elif colour=="orange" :
             self.pandaActor.setColor(255,128,0,255)
 
-
+        #movement of panda
         if (no_move==False):
 
             posInterval1 = self.pandaActor.posInterval(13, Point3(0, -10, 0), startPos = Point3(0, 10, 0))
