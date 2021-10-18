@@ -1,8 +1,6 @@
 import sys
 import platform
 from . import panda
-from direct.task import Task
-from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from panda3d.core import Point3
 from math import pi, sin, cos
@@ -10,9 +8,8 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 
-
 class WalkingPandaApp(ShowBase):
-    def __init__(self, no_rotate=False, scale=False, colour=False, no_move=False, first_person=False):
+    def __init__(self, no_rotate=False, scale=False, colour=False, no_move=False, first_person=False, soundpath=True):
         ShowBase.__init__(self)
 
         # Load the environment model.
@@ -36,9 +33,8 @@ class WalkingPandaApp(ShowBase):
         self.pandaActor.loop("walk")
 
 
-        mySound = self.loader.loadSfx("/h/c1007711_csc1034_practical1_2021_new/walking_panda/pandawalk.ogg")
+        mySound = self.loader.loadSfx(soundpath)
         mySound.play()
-
 
         if (no_rotate==False) and first_person==False :
 
